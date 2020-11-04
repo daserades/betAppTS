@@ -15,9 +15,11 @@ interface GetMatchByIdAction {
 }
 interface DeleteMatchAction {
   type: typeof actionTypes.DELETE_MATCH;
+  payload: string;
 }
 interface UpdateMatchAction {
   type: typeof actionTypes.UPDATE_MATCH;
+  payload: Match;
 }
 
 export type MatchApiActions =

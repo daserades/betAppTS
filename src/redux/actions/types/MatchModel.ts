@@ -1,6 +1,8 @@
 export interface Match {
+  _id: string;
   Coupon?: [
     {
+      _id: string;
       League?: string;
       Date?: string;
       FirstTeam?: string;
