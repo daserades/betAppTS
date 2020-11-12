@@ -26,7 +26,7 @@ export function getMatchReducer(
         ),
       };
     case actionTypes.UPDATE_MATCH:
-      console.log("Update Match Reducer", action.payload);
+      console.log("Action.payload reducer update", action.payload);
       return {
         ...state,
         matchState: state.matchState.map((item) =>

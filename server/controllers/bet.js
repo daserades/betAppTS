@@ -1,6 +1,6 @@
 const Bet = require("../models/bets.model");
 
-exports.getMatch = (req, res, next) => {
+exports.getMatches = (req, res, next) => {
   Bet.find()
     .then((bet) => res.json(bet))
     .catch((err) => res.status(400).json("Error:" + err));
@@ -40,15 +40,15 @@ exports.updateMatch = (req, res, next) => {
       bet.Coupon[0].MatchState = req.body.MatchState;
       console.log(req.body.League);
       return bet.save().then((bet) => {
-        // match will be a payload you can access with action.payload.match
-        return res.json({ match: bet });
+        /// i retured directly bet.because in react reducer need it can access via action.payload
+        return res.json(bet);
       });
     }
   });
 };
 
 exports.getMatchById = (req, res, next) => {
-  Bet.find({ _id: req.params.id })
+  Bet.findOne({ _id: req.params.id })
     .then((bet) => res.json(bet))
     .catch((err) => res.status(400).json("Error:" + err));
 };

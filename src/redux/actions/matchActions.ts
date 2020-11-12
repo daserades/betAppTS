@@ -45,6 +45,10 @@ const deleteMatchAction = (matchId: string): AppActions => {
   };
 };
 
+const updateMatchAction = (matchData: Match): AppActions => {
+  return { type: actionTypes.UPDATE_MATCH, payload: matchData };
+};
+
 export const postMatch = (postData: any) => {
   return async (dispatch: Dispatch<AppActions>) => {
     return await axios.post<Match>("/postMatch", postData).then((res) => {
@@ -53,14 +57,14 @@ export const postMatch = (postData: any) => {
       notificationInfo(
         "Success",
         "Match successfuly added to your coupon",
-        "success"
+        "info"
       );
     });
   };
 };
 export const getMatches = () => {
   return async (dispatch: Dispatch<AppActions>) => {
-    return await axios.get<Match[]>("/getMatch").then((res) => {
+    return await axios.get<Match[]>("/getMatches").then((res) => {
       console.log("Match actions", res.data);
       dispatch(getMatchesAction(res.data));
     });
@@ -74,5 +78,17 @@ export const deleteMatch = (matchId: string) => {
       notificationInfo("Info", "Match deleted successfuly", "danger");
       dispatch(deleteMatchAction(res.data));
     });
+  };
+};
+
+export const updateMatch = (matchId: string, postData: Match) => {
+  return async (dispatch: Dispatch<AppActions>) => {
+    return await axios
+      .post<Match>(`/updateMatch/${matchId}`, postData)
+      .then((res) => {
+        console.log("update Action", res.data);
+        dispatch(updateMatchAction(res.data));
+        notificationInfo("Success", "Match successfuly updated", "success");
+      });
   };
 };

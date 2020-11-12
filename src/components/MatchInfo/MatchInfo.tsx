@@ -5,6 +5,7 @@ import * as matchActions from "../../redux/actions/matchActions";
 import { connect } from "react-redux";
 import { AppActions } from "../../redux/actions/action";
 import { ThunkDispatch } from "redux-thunk";
+import UpdateMatch from "../UpdateMatch/UpdateMatch";
 
 interface MatchInfoState {
   modalShow: boolean;
@@ -14,6 +15,14 @@ interface MatchInfoState {
 type Props = LinkDispatchToProps & LinkStateToProps;
 
 class MatchInfo extends React.Component<Props, MatchInfoState> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      matchId: "",
+      modalShow: false,
+    };
+  }
+
   componentDidMount() {
     this.props.getMatchesAction();
     console.log("This comp matches", this.props.matches);
@@ -77,7 +86,12 @@ class MatchInfo extends React.Component<Props, MatchInfoState> {
                       </td>
                       <td>
                         <button
-                          onClick={() => {}}
+                          onClick={() => {
+                            this.setState({
+                              modalShow: true,
+                              matchId: item._id,
+                            });
+                          }}
                           className="btn btn-outline-primary btn-sm"
                         >
                           Update
@@ -90,6 +104,13 @@ class MatchInfo extends React.Component<Props, MatchInfoState> {
             </table>
           </div>
         </div>
+        {this.state.modalShow ? (
+          <UpdateMatch
+            show={this.state.modalShow}
+            onHide={() => this.setState({ modalShow: false })}
+            matchid={this.state.matchId}
+          />
+        ) : null}
       </div>
     );
   }

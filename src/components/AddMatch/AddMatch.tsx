@@ -6,37 +6,63 @@ import * as matchActions from "../../redux/actions/matchActions";
 import { connect } from "react-redux";
 
 type Props = LinkDispatchToProps;
-class AddMatch extends React.Component<Props> {
+
+interface AddMatchState {
+  matchState: {
+    league: string;
+    date: string;
+    firstTeam: string;
+    secondTeam: string;
+    rate: string;
+    matchState: string;
+    comment: string;
+    guess: string;
+    couponState: number;
+    couponComment: string;
+    couponRate: number;
+    addedBy: string;
+  };
+}
+class AddMatch extends React.Component<Props, AddMatchState> {
   constructor(props: any) {
     super(props);
     this.handlePost = this.handlePost.bind(this);
+    this.state = {
+      matchState: {
+        league: "",
+        date: "",
+        firstTeam: "",
+        secondTeam: "",
+        rate: "",
+        matchState: "",
+        comment: "",
+        guess: "",
+        couponState: 0,
+        couponComment: "",
+        couponRate: 0.0,
+        addedBy: "",
+      },
+    };
   }
-  state = {
-    league: "",
-    date: "",
-    firstTeam: "",
-    secondTeam: "",
-    rate: "",
-    matchState: "",
-    comment: "",
-    guess: "",
-    couponState: 0,
-    couponComment: "",
-    couponRate: 0.0,
-    addedBy: "",
-  };
+
   baseState = this.state;
 
   handlePost(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
-    this.props.postData(this.state);
+    this.props.postData(this.state.matchState);
     this.handleClear();
   }
   handleClear() {
     this.setState(this.baseState);
   }
   changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({
+      ...this.state,
+      matchState: {
+        ...this.state.matchState,
+        [e.target.name]: e.target.value,
+      },
+    });
   };
   render() {
     const {
@@ -52,7 +78,7 @@ class AddMatch extends React.Component<Props> {
       couponComment,
       couponRate,
       addedBy,
-    } = this.state;
+    } = this.state.matchState;
     return (
       <div>
         <div className={classes.body}>
