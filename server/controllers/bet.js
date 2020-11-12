@@ -40,7 +40,7 @@ exports.updateMatch = (req, res, next) => {
       bet.Coupon[0].MatchState = req.body.MatchState;
       console.log(req.body.League);
       return bet.save().then((bet) => {
-        /// i retured directly bet.because in react reducer need it can access via action.payload
+        /// i retured directly bet.because in react reducer need it. reducer can access via action.payload
         return res.json(bet);
       });
     }
