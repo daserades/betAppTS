@@ -8,12 +8,12 @@ import * as actionTypes from "./actionTypes";
 const notificationInfo = (
   notificationTitle: string,
   notificationMessage: string,
-  notificationType: string
+  notificationType: "success" | "danger" | "info" | "default" | "warning"
 ) =>
   store.addNotification({
     title: `${notificationTitle}`,
     message: `${notificationMessage}`,
-    type: `${notificationType}`,
+    type: notificationType,
     insert: "bottom",
     container: "bottom-right",
     animationIn: ["animated", "fadeIn"],

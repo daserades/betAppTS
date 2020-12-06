@@ -12,13 +12,11 @@ export function getMatchReducer(
 ): MatchType {
   switch (action.type) {
     case actionTypes.GET_MATCHSES:
-      console.log("reducer get match action", state);
       return {
         ...state,
         matchState: action.payload as [],
       };
     case actionTypes.DELETE_MATCH:
-      console.log("Delete match reducer", action.payload);
       return {
         ...state,
         matchState: state.matchState.filter(
@@ -26,7 +24,6 @@ export function getMatchReducer(
         ),
       };
     case actionTypes.UPDATE_MATCH:
-      console.log("Action.payload reducer update", action.payload);
       return {
         ...state,
         matchState: state.matchState.map((item) =>

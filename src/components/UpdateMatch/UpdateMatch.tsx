@@ -86,7 +86,7 @@ class UpdateMatch extends Component<Props, MatchInfoState> {
       "Props",
       this.props.matchid,
       this.props.onHide,
-      this.props.show,
+      this.props.show
     );
     await axios
       .get<Match>(`/getMatchById/${this.props.matchid}`)
@@ -135,6 +135,7 @@ class UpdateMatch extends Component<Props, MatchInfoState> {
   }
   handleUpdate = () => {
     this.props.postmatch(this.props.matchid, this.state.Match);
+    console.log("this.state", this.state.Match);
     this.props.onHide();
   };
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
